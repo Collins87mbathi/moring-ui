@@ -1,0 +1,35 @@
+.nav__wrapper {
+  display: flex;
+  align-items: center;
+  padding: 20px 40px;
+  height: 70px;
+  box-shadow: 5px 0 30px -20px #000000;
+  justify-content: space-between;
+
+  & :is(a) {
+    font-weight: 600;
+  }
+  .right {
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      list-style: none;
+    }
+  }
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    img {
+      width: 40px;
+      height: 40px;
+    }
+    a{
+        font-size: 20px;
+        text-transform: uppercase;
+    }
+  }
+}
