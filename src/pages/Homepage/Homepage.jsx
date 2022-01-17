@@ -21,7 +21,7 @@ const Homepage = () => {
   return (
     <div className="homepage__wrapper">
       {blogs.length < 1 ? (
-        <div></div>
+        <div>No blog posts currently</div>
       ) : (
         blogs.map((blog, index) => (
           <Homeblog
@@ -32,10 +32,6 @@ const Homepage = () => {
           />
         ))
       )}
-      <Homeblog />
-      <Homeblog />
-      <Homeblog />
-      <Homeblog />
     </div>
   );
 };

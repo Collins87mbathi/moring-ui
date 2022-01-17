@@ -1,6 +1,9 @@
+import axios from "axios";
 import { useState } from "react";
+import { BASE_URL } from "../../utils/constants";
 import "./NewBlog.scss";
 const NewBlog = () => {
+  const [serverErrors, setServerErrors] = useState([]);
   const [blogdata, setBlogData] = useState({
     title: "",
     body: "",
@@ -10,12 +13,32 @@ const NewBlog = () => {
       return { ...initial, [e.target.name]: e.target.value };
     });
   };
+  const submitForm = (e) => {
+    e.preventDefault();
+    axios
+      .post(`${BASE_URL}/blog/new`, blogdata)
+      .then((res) => {
+        return res.data;
+      })
+      .then((data) => {
+        alert("Blog successfully created");
+      })
+      .catch((err) => {
+        if (err.response) {
+          if (Array.isArray(err.response.data.message)) {
+            setServerErrors([...err.response.data.message]);
+            return;
+          }
+          setServerErrors([err.response.data.message]);
+        }
+      });
+  };
   return (
     <div className="login__wrapper">
       <div className="container">
         <fieldset>
           <legend>Sign up</legend>
-          <form>
+          <form onSubmit={(e) => submitForm(e)}>
             <div className="input__wrapper">
               <label htmlFor="email">Title</label>
               <input
@@ -36,9 +59,17 @@ const NewBlog = () => {
                 value={blogdata.body}
               ></textarea>
             </div>
-
+            {serverErrors.length > 0 && (
+              <div>
+                <ul style={{ color: "red", padding: "5px 10px" }}>
+                  {serverErrors.map((error, index) => (
+                    <li key={index}>{error}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
             <div className="button__submit">
-              <button>Save</button>
+              <button onClick={(e) => submitForm(e)}>Save</button>
             </div>
           </form>
         </fieldset>

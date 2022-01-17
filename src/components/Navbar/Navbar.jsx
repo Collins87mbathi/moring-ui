@@ -19,6 +19,9 @@ const Navbar = () => {
             <li>
               <Link to="/profile">{user.username}</Link>
             </li>
+            <li>
+              <Link to="/blog/new">{"New blog post"}</Link>
+            </li>
             <li
               style={{ cursor: "pointer" }}
               onClick={(e) => {
